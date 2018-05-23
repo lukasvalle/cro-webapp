@@ -75,6 +75,10 @@ class Cro::WebApp::Template::ASTBuilder {
         };
     }
 
+    method single-quote-string($/) {
+        make ~$/;
+    }
+
     sub flatten-literals(@children, :$trim-trailing-horizontal) {
         my @squashed;
         my $last-lit = '';

@@ -113,8 +113,19 @@ grammar Cro::WebApp::Template::Parser {
         [ <?{ $*lone-end-line }> [ \h* \n | { $*lone-end-line = False } ] ]?
     }
 
+    token sigil-tag:sym<use> {
+        '<:use' \h+ <name=.single-quote-string> \h* '>' [\h* \n]?
+        {
+            my $used = $*TEMPLATE-REPOSITORY.resolve($<name>.ast);
+        }
+    }
+
     token deref {
         $<deref>=<.identifier>
+    }
+
+    token single-quote-string {
+        "'" <( <-[']>* )> "'"
     }
 
     token sigil {

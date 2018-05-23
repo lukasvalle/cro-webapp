@@ -49,6 +49,7 @@ sub get-template-repository() is export {
 }
 
 sub load-template($abs-path) {
+    my $*TEMPLATE-REPOSITORY = $template-repo;
     my $source = slurp($abs-path);
     my $ast = Cro::WebApp::Template::Parser.parse($source, actions => Cro::WebApp::Template::ASTBuilder).ast;
     Cro::WebApp::Template::Compiled.new(renderer => $ast.compile)
